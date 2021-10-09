@@ -8,12 +8,15 @@ function onReady() {
     // renderToDOM();
     // $(`#addBtn`).on(`click`, calcOnDOM);
     $('#addBtn').on(`click`, addNumbers);
+    $('#minusBtn').on(`click`, minusNumbers);
+    $('#timesBtn').on(`click`, timesNumbers);
+    $('#divideBtn').on(`click`, divideNumbers);
 }
 
-let numOne = $("#numOneInput").val();
-        console.log(numOne);
-let numTwo = $("#numTwoInput").val();
-    console.log(numTwo);
+// let numOne = $("#numOneInput").val();
+//         console.log(numOne);
+// let numTwo = $("#numTwoInput").val();
+//     console.log(numTwo);
     
 
     function getCalcs(){
@@ -66,14 +69,34 @@ let numTwo = $("#numTwoInput").val();
 
 function addNumbers() {
     let numOne = $("#numOneInput").val();
-        console.log(numOne);
     let numTwo = $("#numTwoInput").val();
-        console.log(numTwo);
-    let addTotal = numOne + numTwo;  
-    console.log(numOne);
-    console.log(numTwo);  
+    let addTotal = Number(numOne) + Number(numTwo);  
     console.log(addTotal);      
-        
+    // take addTotal and add to DOM when "= btn" is hit
+    }
+
+function minusNumbers() {
+    let numOne = $("#numOneInput").val();
+    let numTwo = $("#numTwoInput").val();
+    let addTotal = Number(numOne) - Number(numTwo);  
+    console.log(addTotal);      
+    // take addTotal and add to DOM when "= btn" is hit
+    }
+
+function timesNumbers() {
+    let numOne = $("#numOneInput").val();
+    let numTwo = $("#numTwoInput").val();
+    let addTotal = Number(numOne) * Number(numTwo);  
+    console.log(addTotal);      
+    // take addTotal and add to DOM when "= btn" is hit
+    }
+    
+function divideNumbers() {
+    let numOne = $("#numOneInput").val();
+    let numTwo = $("#numTwoInput").val();
+    let addTotal = Number(numOne) / Number(numTwo);  
+    console.log(addTotal);      
+    // take addTotal and add to DOM when "= btn" is hit
     }
 
 
