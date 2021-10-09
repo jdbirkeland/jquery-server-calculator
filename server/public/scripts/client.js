@@ -6,8 +6,10 @@ function onReady() {
     // GET ON LOAD
     getCalcs();
     // renderToDOM();
-    $(`#equalsBtn`).on(`click`, )
-    // $(`#addBtn`).on(`click`, calcOnDOM);
+    // $(`#eq/ualsBtn`).on(`click`, );
+    addCalcs();
+    // $(`#addBtn`).on(`click`, renderToDOM);
+
     $('#addBtn').on(`click`, addNumbers);
     $('#minusBtn').on(`click`, minusNumbers);
     $('#timesBtn').on(`click`, timesNumbers);
@@ -18,7 +20,10 @@ function onReady() {
 //         console.log(numOne);
 // let numTwo = $("#numTwoInput").val();
 //     console.log(numTwo);
-    
+let addTotal = [];
+let minusTotal = [];
+let timesTotal = [];   
+let divideTotal = [];
 
     function getCalcs(){
         //  where we get our calcs from the server
@@ -44,11 +49,12 @@ function onReady() {
             // req.body on the server
             data: {
                 numOne: $(`#numOneInput`).val(),
-                numTwo: $(`#numTwoInput`).val()
+                numTwo: $(`#numTwoInput`).val(),
+                // operation:operation
             }
         }).then(function(response) {
             console.log('Successful POST!', response);
-            getQuotes();
+            getCalcs();
             $(`#numOneInput`).val(``);
             $(`#numTwoInput`).val(``);
         }).catch(function(response){
@@ -59,19 +65,21 @@ function onReady() {
     function renderToDOM(calcs) {
         $(`#calcOnDOM`).empty();
     
-        for(let data of calcs) {
+        // for(let data of calcs) {
             $(`#calcOnDOM`).append(`
             <p>
-            ${data.numOne} by ${data.numTwo}
+             ${addTotal}
             </p>
             `)
-        }
+        // }
     };
 
+
+// function calculator() {}
 function addNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let addTotal = Number(numOne) + Number(numTwo);  
+    addTotal = Number(numOne) + Number(numTwo);  
     console.log(addTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
@@ -79,24 +87,24 @@ function addNumbers() {
 function minusNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let addTotal = Number(numOne) - Number(numTwo);  
-    console.log(addTotal);      
+    minusTotal = Number(numOne) - Number(numTwo);  
+    console.log(minusTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
 
 function timesNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let addTotal = Number(numOne) * Number(numTwo);  
-    console.log(addTotal);      
+    timesTotal = Number(numOne) * Number(numTwo);  
+    console.log(timesTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
     
 function divideNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let addTotal = Number(numOne) / Number(numTwo);  
-    console.log(addTotal);      
+    divideTotal = Number(numOne) / Number(numTwo);  
+    console.log(divideTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
 
