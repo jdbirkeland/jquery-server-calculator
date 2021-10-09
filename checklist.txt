@@ -1,8 +1,19 @@
+Week 8 - Weekend Challenge - Server Calculator
+
+-Getting Set up(files)
+Server - server.js [X]
+    -Public - index.html [X]
+        Scripts - client.js [X]
+        Styles - style.css [X]
+        Vendors - jquery.js [X]
+
+[X] - .gitignore
+[X] - Install Express
+[X] - Install Body-Parser
+
 Create a user interface where the user can input two values (2 input elements)
 and the select type of mathematical operation. 
-
-[ ]Create 2 inputs elements
-[ ]Create buttons for +,-,*,and /
+[X]Create buttons for +,-,*,and /
 [ ]Create functions to take values from inputs and carry out desired operations
     [ ]Add Values
     [ ]Subtract Values
