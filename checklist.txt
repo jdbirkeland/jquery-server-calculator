@@ -14,13 +14,13 @@ Server - server.js [X]
 Create a user interface where the user can input two values (2 input elements)
 and the select type of mathematical operation. 
 [X]Create buttons for +,-,*,and /
-[ ]Create functions to take values from inputs and carry out desired operations
-    [ ]Add Values
-    [ ]Subtract Values
-    [ ]Multiply Values
-    [ ]Divide Values
+[X]Create functions to take values from inputs and carry out desired operations
+    [X]Add Values
+    [X]Subtract Values
+    [X]Multiply Values
+    [X]Divide Values
 
-[ ]Create '=' button and C button
+[X]Create '=' button and C button
 [ ]Create functions to carry out button operations
     [ ](=button).on('.clicked',functions to send answers to server via POST)
     [ ]('#clearBtn').on('.clicked', clear user input fields)

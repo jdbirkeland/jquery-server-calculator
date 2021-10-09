@@ -6,6 +6,7 @@ function onReady() {
     // GET ON LOAD
     getCalcs();
     // renderToDOM();
+    $(`#equalsBtn`).on(`click`, )
     // $(`#addBtn`).on(`click`, calcOnDOM);
     $('#addBtn').on(`click`, addNumbers);
     $('#minusBtn').on(`click`, minusNumbers);
@@ -42,8 +43,8 @@ function onReady() {
             // Best practice - data should be an object
             // req.body on the server
             data: {
-                one: $(`#numOneInput`).val(),
-                two: $(`#numTwoInput`).val()
+                numOne: $(`#numOneInput`).val(),
+                numTwo: $(`#numTwoInput`).val()
             }
         }).then(function(response) {
             console.log('Successful POST!', response);
@@ -58,10 +59,10 @@ function onReady() {
     function renderToDOM(calcs) {
         $(`#calcOnDOM`).empty();
     
-        for(let calc of calcs) {
+        for(let data of calcs) {
             $(`#calcOnDOM`).append(`
             <p>
-                TEST
+            ${data.numOne} by ${data.numTwo}
             </p>
             `)
         }
@@ -99,4 +100,10 @@ function divideNumbers() {
     // take addTotal and add to DOM when "= btn" is hit
     }
 
+function addEquals() {
 
+
+    // $('#addBtn').on(`click`, addNumbers);
+    // $('#equalsBtn').on(`click`, addTotal)
+    console.log(addTotal);
+}

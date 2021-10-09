@@ -14,7 +14,10 @@ app.listen(PORT, () => {
   console.log('listening on port', PORT);
 });
 
-let calcs = [{num:"23"}];
+let calcs = [
+    // {numOne:"23", numTwo:"42"},
+    // {numOne:"32", numTwo:"24"}
+];
 // let quotes = [
 //   {text: "Nothing gold can stay", speaker: "Robert Frost"},
 //   {text: "This is taco", speaker: "Dane Smith"},
