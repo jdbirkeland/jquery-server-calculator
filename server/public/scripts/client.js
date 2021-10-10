@@ -3,6 +3,8 @@ $(onReady);
 // $(document).ready(onReady);
 // let operator = '';
 
+// Realized WAY TOO LATE I was supposed to be using "operator" as an object.  
+// If I had more time, I would prolly start this all over and just try it again.
 // function addOp(){
 // operator = '+';
 // console.log('Operator is Add');
@@ -24,15 +26,14 @@ function onReady() {
     // GET ON LOAD
     getCalcs();
     // renderToDOM();
-    // $(`#eq/ualsBtn`).on(`click`, );
     // addCalcs();
     // $(`#addBtn`).on(`click`, renderToDOM);
 
-    $('#addBtn').on(`click`, addNumbers);
-    $('#minusBtn').on(`click`, minusNumbers);
-    $('#timesBtn').on(`click`, timesNumbers);
-    $('#divideBtn').on(`click`, divideNumbers);
-    $('#clearBtn').on(`click`, clear);
+    $('#addBtn').on(`click`, addNumbers); //works except for operator
+    $('#minusBtn').on(`click`, minusNumbers, addCalcs);//works except for operator
+    $('#timesBtn').on(`click`, timesNumbers, addCalcs);//works except for operator
+    $('#divideBtn').on(`click`, divideNumbers, addCalcs);//works except for operator
+    $('#clearBtn').on(`click`, clear);//THIS WORKS!
 }
 
 let numOne = $("#numOneInput").val();
@@ -42,11 +43,9 @@ let numOne = $("#numOneInput").val();
 let numTwo = $("#numTwoInput").val();
     console.log(numTwo);
 
-let addTotal = [];
-let minusTotal = [];
-let timesTotal = [];   
-let divideTotal = [];
-
+let total = [];//I was trying to send my results for operator functions here to grab and put on DOM.
+let addTotals
+// I believe this works properly.
     function getCalcs(){
         //  where we get our calcs from the server
         // AJAX!!!
@@ -62,6 +61,7 @@ let divideTotal = [];
         })
     };
 
+    // I believe this works properly - Tested with Postman and that works Great!
     function addCalcs() {
         $.ajax({
             // using POST to add data to server
@@ -71,8 +71,9 @@ let divideTotal = [];
             // req.body on the server
             data: {
                 numOne: $(`#numOneInput`).val(),
-                operation:$(`#operator`).val(),
-                numTwo: $(`#numTwoInput`).val()
+                operator:$(`#operator`).val(),
+                numTwo: $(`#numTwoInput`).val(),
+                total: $(`#totals`).val()
             }
         }).then(function(response) {
             console.log('Successful POST!', response);
@@ -80,18 +81,20 @@ let divideTotal = [];
             $(`#numOneInput`).val(``);
             $(`#operator`).val(``);
             $(`#numTwoInput`).val(``);
+            $(`#totals`).val(``);
         }).catch(function(response){
           alert('POST failed', response)  
         })
     };
 
+    // Got this to Render the input numbers - ran into issues with operator and total.
     function renderToDOM(calcs) {
         $(`#calcOnDOM`).empty();
     
         for(let calc of calcs) {
             $(`#calcOnDOM`).append(`
             <p>
-                ${(addTotal)}
+            ${calc.numOne}${calc.operator}${calc.numTwo}=${total}
              </p>
             `)
         }
@@ -107,13 +110,17 @@ let divideTotal = [];
 
 
 // function calculator() {}
+
+// At one point I had all these "total values" being pushed to an array to grab total value from but now it does not work.
+// All the functions work and push the values into "total" array when addNumbers run without addCalcs
 function addNumbers() {
     let numOne = $("#numOneInput").val();
     // let operator = $(`#operator`).val();
     let numTwo = $("#numTwoInput").val();
-    let total = Number(numOne) + Number(numTwo);  
-    addTotal.push(total);
-    console.log(addTotal);
+    let addTotal = Number(numOne) + Number(numTwo); 
+    // let addTotal = Number(numOne) opAdd() Number(numTwo); 
+    total.push(addTotal);
+    console.log(total);
     clear();      
     // take addTotal and add to DOM when "= btn" is hit
     }
@@ -121,37 +128,33 @@ function addNumbers() {
 function minusNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let total = Number(numOne) - Number(numTwo);  
-    minusTotal.push(total);
-    console.log(minusTotal);  
+    let minusTotal = Number(numOne) - Number(numTwo);  
+    // let minusTotal = Number(numOne) opMinus() Number(numTwo); 
+    total.push(minusTotal);
+    console.log(total);  
     clear();    
-    // take addTotal and add to DOM when "= btn" is hit
+    // take minusTotal and add to DOM when "= btn" is hit
     }
 
 function timesNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let total = Number(numOne) * Number(numTwo);  
-    timesTotal.push(total);
-    console.log(timesTotal); 
+    let timesTotal = Number(numOne) * Number(numTwo);
+    // let timesTotal = Number(numOne) opTimes() Number(numTwo);   
+    total.push(timesTotal);
+    console.log(total); 
     clear();     
-    // take addTotal and add to DOM when "= btn" is hit
+    // take timesTotal and add to DOM when "= btn" is hit
     }
     
 function divideNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let total = Number(numOne) / Number(numTwo);  
-    divideTotal.push(total);
-    console.log(divideTotal);  
+    let divideTotal = Number(numOne) / Number(numTwo); 
+    // let divideTotal = Number(numOne) opDivide() Number(numTwo);  
+    total.push(divideTotal);
+    console.log(total);  
     clear();    
-    // take addTotal and add to DOM when "= btn" is hit
+    // take divideTotal and add to DOM when "= btn" is hit
     }
 
-// function addEquals() {
-
-
-//     // $('#addBtn').on(`click`, addNumbers);
-//     // $('#equalsBtn').on(`click`, addTotal)
-//     console.log(addTotal);
-// }
