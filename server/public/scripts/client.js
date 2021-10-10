@@ -1,25 +1,47 @@
 $(onReady);
 // same as
 // $(document).ready(onReady);
+// let operator = '';
+
+// function addOp(){
+// operator = '+';
+// console.log('Operator is Add');
+// }
+// function minusOp(){
+// operator = '-';
+// console.log('Operator is Minus');
+// }
+// function timesOp(){
+// operator = '*';
+// console.log('Operator is Times');
+// }
+// function divideOp(){
+// operator = '/';
+// console.log('Operator is Divide');
+// }
 
 function onReady() {
     // GET ON LOAD
     getCalcs();
     // renderToDOM();
     // $(`#eq/ualsBtn`).on(`click`, );
-    addCalcs();
+    // addCalcs();
     // $(`#addBtn`).on(`click`, renderToDOM);
 
     $('#addBtn').on(`click`, addNumbers);
     $('#minusBtn').on(`click`, minusNumbers);
     $('#timesBtn').on(`click`, timesNumbers);
     $('#divideBtn').on(`click`, divideNumbers);
+    $('#clearBtn').on(`click`, clear);
 }
 
-// let numOne = $("#numOneInput").val();
-//         console.log(numOne);
-// let numTwo = $("#numTwoInput").val();
-//     console.log(numTwo);
+let numOne = $("#numOneInput").val();
+        console.log(numOne);
+// let operator = $(`#operator`).val();
+//         console.log(operation);
+let numTwo = $("#numTwoInput").val();
+    console.log(numTwo);
+
 let addTotal = [];
 let minusTotal = [];
 let timesTotal = [];   
@@ -49,13 +71,14 @@ let divideTotal = [];
             // req.body on the server
             data: {
                 numOne: $(`#numOneInput`).val(),
-                numTwo: $(`#numTwoInput`).val(),
-                // operation:operation
+                operation:$(`#operator`).val(),
+                numTwo: $(`#numTwoInput`).val()
             }
         }).then(function(response) {
             console.log('Successful POST!', response);
             getCalcs();
             $(`#numOneInput`).val(``);
+            $(`#operator`).val(``);
             $(`#numTwoInput`).val(``);
         }).catch(function(response){
           alert('POST failed', response)  
@@ -65,53 +88,70 @@ let divideTotal = [];
     function renderToDOM(calcs) {
         $(`#calcOnDOM`).empty();
     
-        // for(let data of calcs) {
+        for(let calc of calcs) {
             $(`#calcOnDOM`).append(`
             <p>
-             ${addTotal}
-            </p>
+                ${(addTotal)}
+             </p>
             `)
-        // }
+        }
     };
+
+    
+    function clear() {
+        // This function clears the input fields once operation is completed
+        // I also tied this to the clearBtn click instruction
+        $(`#numOneInput`).val(``);
+        $(`#numTwoInput`).val(``);
+    }
 
 
 // function calculator() {}
 function addNumbers() {
     let numOne = $("#numOneInput").val();
+    // let operator = $(`#operator`).val();
     let numTwo = $("#numTwoInput").val();
-    addTotal = Number(numOne) + Number(numTwo);  
-    console.log(addTotal);      
+    let total = Number(numOne) + Number(numTwo);  
+    addTotal.push(total);
+    console.log(addTotal);
+    clear();      
     // take addTotal and add to DOM when "= btn" is hit
     }
 
 function minusNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    minusTotal = Number(numOne) - Number(numTwo);  
-    console.log(minusTotal);      
+    let total = Number(numOne) - Number(numTwo);  
+    minusTotal.push(total);
+    console.log(minusTotal);  
+    clear();    
     // take addTotal and add to DOM when "= btn" is hit
     }
 
 function timesNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    timesTotal = Number(numOne) * Number(numTwo);  
-    console.log(timesTotal);      
+    let total = Number(numOne) * Number(numTwo);  
+    timesTotal.push(total);
+    console.log(timesTotal); 
+    clear();     
     // take addTotal and add to DOM when "= btn" is hit
     }
     
 function divideNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    divideTotal = Number(numOne) / Number(numTwo);  
-    console.log(divideTotal);      
+    let total = Number(numOne) / Number(numTwo);  
+    divideTotal.push(total);
+    console.log(divideTotal);  
+    clear();    
     // take addTotal and add to DOM when "= btn" is hit
     }
 
-function addEquals() {
+// function addEquals() {
 
 
-    // $('#addBtn').on(`click`, addNumbers);
-    // $('#equalsBtn').on(`click`, addTotal)
-    console.log(addTotal);
-}
+//     // $('#addBtn').on(`click`, addNumbers);
+//     // $('#equalsBtn').on(`click`, addTotal)
+//     console.log(addTotal);
+// }

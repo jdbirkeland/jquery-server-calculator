@@ -6,24 +6,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const PORT = 5000;
 
-let operator = '';
-
-function addOp(){
-operator = '+';
-console.log('Operator is Add');
-}
-function minusOp(){
-operator = '-';
-console.log('Operator is Minus');
-}
-function timesOp(){
-operator = '*';
-console.log('Operator is Times');
-}
-function divideOp(){
-operator = '/';
-console.log('Operator is Divide');
-}
 // without this no CLIENT SIDE FILES  
 app.use(express.static('server/public')); //all the files the client can ask for on the server
 
@@ -33,7 +15,7 @@ app.listen(PORT, () => {
 });
 
 let calcs = [
-    {numOne:"23", numTwo:"42"},
+    {numOne:"23", operator:"+", numTwo:"42"},
     // {numOne:"32", numTwo:"24"}
 ];
 
@@ -45,7 +27,7 @@ let totals = []
 // ];
 
 app.get('/calcs', (req, res) => {
-  // sending "quotes" to "respond" in server.js
+  // sending "calcs" to "respond" in server.js
   res.send(calcs);
 })
 
@@ -54,9 +36,7 @@ app.post('/calcs', (req, res) => {
   
   // grab new quote from request body
   let calc = req.body;
-  // let quote = {text: 'Please clap', speaker:'Edan'}
-  
-  // puah quote into array
+
   calcs.push(calc);
   console.log('This is calcs array', calcs);
 
@@ -72,17 +52,19 @@ app.post('/calcs', (req, res) => {
 
 function addNumbers() {
     let numOne = $("#numOneInput").val();
+    // let operator = $(`#operator`).val();
     let numTwo = $("#numTwoInput").val();
-    let addTotal = Number(numOne) + Number(numTwo);  
+    let total = Number(numOne) + Number(numTwo);  
+    addTotal.push(total);
     console.log(addTotal);      
-    totals.push(addTotal);
     // take addTotal and add to DOM when "= btn" is hit
     }
 
 function minusNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let minusTotal = Number(numOne) - Number(numTwo);  
+    let total = Number(numOne) - Number(numTwo);  
+    minusTotal.push(total);
     console.log(minusTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
@@ -90,7 +72,8 @@ function minusNumbers() {
 function timesNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let timesTotal = Number(numOne) * Number(numTwo);  
+    let total = Number(numOne) * Number(numTwo);  
+    timesTotal.push(total);
     console.log(timesTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
@@ -98,7 +81,8 @@ function timesNumbers() {
 function divideNumbers() {
     let numOne = $("#numOneInput").val();
     let numTwo = $("#numTwoInput").val();
-    let divideTotal = Number(numOne) / Number(numTwo);  
+    let total = Number(numOne) / Number(numTwo);  
+    divideTotal.push(total);
     console.log(divideTotal);      
     // take addTotal and add to DOM when "= btn" is hit
     }
@@ -110,3 +94,10 @@ function divideNumbers() {
 //     // $('#equalsBtn').on(`click`, addTotal)
 //     console.log(addTotal);
 // }
+app.get('/total', (req, res) => {
+    res.send({type: 'test'})
+})
+
+app.post('/.total', (req, res) => {
+    res.send({type: 'test'})
+})
