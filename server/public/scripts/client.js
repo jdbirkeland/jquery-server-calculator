@@ -155,6 +155,11 @@ function submitMath() {
             data: mathObject
     }).then(function(response) {
         console.log('Successful POST!', response);
+        //display answer
+        let el = $('#answer');
+        el.empty();
+        el.append(response.total);
+        //get history
         // getCalcs();
     }).catch(function(err){
         console.log(err);

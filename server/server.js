@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const history = require('./modules/history');
-console.log(history);
 
 // globals
 const app = express();
@@ -27,33 +26,40 @@ app.get('/calcs', (req, res) => {
   res.send(calcs);
 })
 
+//get history
+
+
 // post for new equation
 app.post('/calcs', (req, res) => {
   console.log('This is req.body, /calcs POST hit', req.body);
   // grab new quote from request body
-  let total = 0;
-  if(req.body.operator === '+'){
-    total = Number(req.body.numOne) + Number(req.body.numTwo);
-  }  
-  else if(req.body.operator === '-'){
-    total = Number(req.body.numOne) - Number(req.body.numTwo);
-  }
-  else if(req.body.operator === '*'){
-    total = Number(req.body.numOne) * Number(req.body.numTwo);
-  }  
-  else if(req.body.operator === '/'){
-    total = Number(req.body.numOne) / Number(req.body.numTwo);
-  }
-  
-
-  const calc = Number(req.body.numOne) + Number(req.body.numTwo);
-  console.log('calc:', total);
-
-//   calcs.push(calc);
-//   console.log('This is calcs array', calcs);
-
-//   // need this otherwise it will keep searching and waiting
-  res.sendStatus(201);
+    let total = 0;
+    if(req.body.operator === '+'){
+        total = Number(req.body.numOne) + Number(req.body.numTwo);
+    }  
+    else if(req.body.operator === '-'){
+        total = Number(req.body.numOne) - Number(req.body.numTwo);
+    }
+    else if(req.body.operator === '*'){
+        total = Number(req.body.numOne) * Number(req.body.numTwo);
+    }  
+    else if(req.body.operator === '/'){
+        total = Number(req.body.numOne) / Number(req.body.numTwo);
+    }
+    totalObject = {
+        total: total
+    } // sending an object instead of a number to avoid status code collision
+    // need this otherwise it will keep searching and waiting
+    res.send(totalObject);
+    // add this calculation to history   
+    const historyObject = {
+        num1: req.body.numOne,
+        operator: req.body.operator,
+        num2: req.body.numTwo,
+        total: total
+    }//end historyObject
+    history.push(historyObject);
+    console.log('history;', history);
 })// end /calcs POST
 
 // Tried to create separate "totals" to specifically pull total values
