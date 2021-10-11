@@ -1,5 +1,5 @@
 console.log('hello from js');
-let ChosenOperator = '';
+let chosenOperator = '';
 
 $(onReady);
 // same as
@@ -29,16 +29,10 @@ function onReady() {
     // Original - $('#divideBtn').on(`click`, divideNumbers, addCalcs);//works except for operator
     // clear inputs
     $('#clearBtn').on(`click`, clear);//THIS WORKS!
-
     // perform GET request to server to get all history
+    getHistory();
+    
 }// end onReady
-
-// let numOne = $("#numOneInput").val();
-//         console.log(numOne);
-// // let operator = $(`#operator`).val();
-// //         console.log(operation);
-// let numTwo = $("#numTwoInput").val();
-//     console.log(numTwo);
 
 // let total = [];//I was trying to send my results for operator functions here to grab and put on DOM.
 // let addTotals
@@ -126,7 +120,29 @@ chosenOperator = '/';
 console.log('Operator is Divide /');
 }//end divideOp
 
-
+function getHistory(){
+    console.log('in getHistory');
+    // make AJAX call to get history
+    $.ajax({
+        method: 'GET',
+        url: '/calcs'
+    }).then(function(response){
+        console.log('back from GET with:', response);
+        //get element to append and empty
+        let el = $('#history');
+        el.empty();
+    //loop through array
+    for (let i =0; i<response.length; i++){
+        //display on the DOM
+        el.append(`<li>${response[i].num1} ${response[i].operator} ${response[i].num2} = ${response[i].total}</li>`)
+    }//for end
+   
+    }).catch(function(err){
+        alert('problem!')
+        console.log(err);
+    })
+   
+}
 
 function submitMath() {
     console.log('clicked');
@@ -160,6 +176,7 @@ function submitMath() {
         el.empty();
         el.append(response.total);
         //get history
+        getHistory();
         // getCalcs();
     }).catch(function(err){
         console.log(err);
