@@ -1,3 +1,5 @@
+console.log('hello from node');
+
 const express = require('express');
 const app = express();
 
@@ -5,6 +7,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
 const PORT = 5000;
+
+const history = require('./modules/history');
+console.log(history);
 
 // without this no CLIENT SIDE FILES  
 app.use(express.static('server/public')); //all the files the client can ask for on the server

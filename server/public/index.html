@@ -12,6 +12,8 @@
 <body>
     <h1>Jquery Server Calculator</h1>
 
+<div id="calcWrapper">
+    <label htmlFor="input1">first value:</label>
     <input type="number" id="numOneInput">
     
     <button  id="addBtn">+</button>
@@ -19,13 +21,18 @@
     <button id="timesBtn">*</button>
     <button id="divideBtn">/</button>
 
+    <label htmlFor="input2">second value:</label>
     <input type="number" id="numTwoInput">
 
     <button id="equalsBtn">=</button>
     <button id="clearBtn">Clear</button>
+</div>
 
+<p>The answer is:<span id="answer"></span></p>
 
-    <div id="calcOnDOM"></div>
+<ul id="history"></ul>
+    
+<!-- <div id="calcOnDOM"></div> -->
     
 </body>
 </html>
