@@ -1,18 +1,16 @@
-console.log('hello from node');
-
+// requires
 const express = require('express');
-const app = express();
-
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
-
-const PORT = 5000;
-
 const history = require('./modules/history');
 console.log(history);
 
-// without this no CLIENT SIDE FILES  
+// globals
+const app = express();
+const PORT = 5000;
+
+// uses - without this no CLIENT SIDE FILES  
 app.use(express.static('server/public')); //all the files the client can ask for on the server
+app.use(bodyParser.urlencoded({extended: true}));
 
 // callback function - telling which port to listen at
 app.listen(PORT, () => {
@@ -29,19 +27,34 @@ app.get('/calcs', (req, res) => {
   res.send(calcs);
 })
 
+// post for new equation
 app.post('/calcs', (req, res) => {
-  console.log('This is req.body', req.body);
-  
-  
+  console.log('This is req.body, /calcs POST hit', req.body);
   // grab new quote from request body
-  let calc = req.body;
+  let total = 0;
+  if(req.body.operator === '+'){
+    total = Number(req.body.numOne) + Number(req.body.numTwo);
+  }  
+  else if(req.body.operator === '-'){
+    total = Number(req.body.numOne) - Number(req.body.numTwo);
+  }
+  else if(req.body.operator === '*'){
+    total = Number(req.body.numOne) * Number(req.body.numTwo);
+  }  
+  else if(req.body.operator === '/'){
+    total = Number(req.body.numOne) / Number(req.body.numTwo);
+  }
+  
 
-  calcs.push(calc);
-  console.log('This is calcs array', calcs);
+  const calc = Number(req.body.numOne) + Number(req.body.numTwo);
+  console.log('calc:', total);
 
-  // need this otherwise it will keep searching and waiting
+//   calcs.push(calc);
+//   console.log('This is calcs array', calcs);
+
+//   // need this otherwise it will keep searching and waiting
   res.sendStatus(201);
-})
+})// end /calcs POST
 
 // Tried to create separate "totals" to specifically pull total values
 let totals = [];
@@ -60,7 +73,7 @@ app.get('/totals', (req, res) => {
   
     totals.push(total);
     console.log('This is totals array', total);
-  
+    
     // need this otherwise it will keep searching and waiting
     res.sendStatus(201);
   })
